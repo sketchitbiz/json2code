@@ -1,0 +1,38 @@
+{
+    "sourceFile": "src/main.types.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1750730138548,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1750730227827,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,14 +1,18 @@\n import fs from \"fs\";\n import path from \"path\";\n import { generateApiCode } from \"./generator\";\n \n-const input = JSON.parse(fs.readFileSync(path.resolve(__dirname, \"../input.json\"), \"utf-8\"));\n-const items = input.item;\n+const inputPath = path.resolve(__dirname, \"../input.json\");\n+const inputJson = JSON.parse(fs.readFileSync(inputPath, \"utf-8\"));\n \n-const typeOutput = generateApiCode(items);\n+if (!Array.isArray(inputJson.item)) {\n+  console.error(\"❌ input.json의 최상위에 'item' 배열이 없습니다.\");\n+  process.exit(1);\n+}\n \n+const output = generateApiCode(inputJson.item);\n+\n console.log(\"✅ Generated Types:\\n\");\n-console.log(typeOutput);\n+console.log(output);\n \n-// 저장도 가능\n-fs.writeFileSync(\"userApi.types.ts\", typeOutput);\n+fs.writeFileSync(\"userApi.types.ts\", output);\n"
+                },
+                {
+                    "date": 1750730285066,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,14 +4,21 @@\n \n const inputPath = path.resolve(__dirname, \"../input.json\");\n const inputJson = JSON.parse(fs.readFileSync(inputPath, \"utf-8\"));\n \n-if (!Array.isArray(inputJson.item)) {\n-  console.error(\"❌ input.json의 최상위에 'item' 배열이 없습니다.\");\n+// 최상위 구조가 객체 하나면 inputJson.item부터 탐색\n+const items = Array.isArray(inputJson)\n+  ? inputJson\n+  : Array.isArray(inputJson.item)\n+  ? inputJson.item\n+  : [];\n+\n+if (items.length === 0) {\n+  console.error(\"❌ 유효한 item 배열을 찾을 수 없습니다.\");\n   process.exit(1);\n }\n \n-const output = generateApiCode(inputJson.item);\n+const output = generateApiCode(items);\n \n console.log(\"✅ Generated Types:\\n\");\n console.log(output);\n \n"
+                },
+                {
+                    "date": 1750730343475,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,25 +1,10 @@\n import fs from \"fs\";\n import path from \"path\";\n import { generateApiCode } from \"./generator\";\n \n-const inputPath = path.resolve(__dirname, \"../input.json\");\n-const inputJson = JSON.parse(fs.readFileSync(inputPath, \"utf-8\"));\n+const input = JSON.parse(fs.readFileSync(path.resolve(__dirname, \"../input.json\"), \"utf-8\"));\n \n-// 최상위 구조가 객체 하나면 inputJson.item부터 탐색\n-const items = Array.isArray(inputJson)\n-  ? inputJson\n-  : Array.isArray(inputJson.item)\n-  ? inputJson.item\n-  : [];\n+// ⛳️ 핵심 수정 부분: input.item 전달\n+const output = generateApiCode(input.item);\n \n-if (items.length === 0) {\n-  console.error(\"❌ 유효한 item 배열을 찾을 수 없습니다.\");\n-  process.exit(1);\n-}\n-\n-const output = generateApiCode(items);\n-\n-console.log(\"✅ Generated Types:\\n\");\n console.log(output);\n-\n-fs.writeFileSync(\"userApi.types.ts\", output);\n"
+                },
+                {
+                    "date": 1750730424002,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,8 +3,7 @@\n import { generateApiCode } from \"./generator\";\n \n const input = JSON.parse(fs.readFileSync(path.resolve(__dirname, \"../input.json\"), \"utf-8\"));\n \n-// ⛳️ 핵심 수정 부분: input.item 전달\n-const output = generateApiCode(input.item);\n+const output = generateApiCode(input); // 👈 여기 수정 (input.item ❌)\n \n console.log(output);\n"
+                },
+                {
+                    "date": 1750731244072,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,13 @@\n import fs from \"fs\";\n import path from \"path\";\n import { generateApiCode } from \"./generator\";\n+import clipboard from \"clipboardy\"; \n \n const input = JSON.parse(fs.readFileSync(path.resolve(__dirname, \"../input.json\"), \"utf-8\"));\n \n const output = generateApiCode(input); // 👈 여기 수정 (input.item ❌)\n \n console.log(output);\n+\n+clipboard.writeSync(output);\n+\n"
+                }
+            ],
+            "date": 1750730138548,
+            "name": "Commit-0",
+            "content": "import fs from \"fs\";\nimport path from \"path\";\nimport { generateApiCode } from \"./generator\";\n\nconst input = JSON.parse(fs.readFileSync(path.resolve(__dirname, \"../input.json\"), \"utf-8\"));\nconst items = input.item;\n\nconst typeOutput = generateApiCode(items);\n\nconsole.log(\"✅ Generated Types:\\n\");\nconsole.log(typeOutput);\n\n// 저장도 가능\nfs.writeFileSync(\"userApi.types.ts\", typeOutput);\n"
+        }
+    ]
+}

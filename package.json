@@ -1,0 +1,21 @@
+{
+  "name": "json2code",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "gen:types": "ts-node src/main.types.ts",
+    "gen:functions": "ts-node src/main.functions.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^24.0.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "clipboardy": "^4.0.0"
+  }
+}

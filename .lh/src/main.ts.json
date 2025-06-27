@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/main.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1750729270029,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1750729574420,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,8 @@\n import fs from \"fs\";\n import path from \"path\";\n import { generateApiCode } from \"./generator\";\n \n-// JSON 읽기\n-const jsonPath = path.resolve(__dirname, \"../input.json\");\n-const raw = fs.readFileSync(jsonPath, \"utf-8\");\n-const parsed = JSON.parse(raw);\n+const input = JSON.parse(fs.readFileSync(path.resolve(__dirname, \"../input.json\"), \"utf-8\"));\n+const output = generateApiCode(input);\n \n-// 코드 생성\n-const output = generateApiCode(parsed);\n-\n-// 콘솔 출력 or 파일 저장\n-console.log(\"==== 생성된 코드 ====\");\n console.log(output);\n"
+                }
+            ],
+            "date": 1750729270029,
+            "name": "Commit-0",
+            "content": "import fs from \"fs\";\nimport path from \"path\";\nimport { generateApiCode } from \"./generator\";\n\n// JSON 읽기\nconst jsonPath = path.resolve(__dirname, \"../input.json\");\nconst raw = fs.readFileSync(jsonPath, \"utf-8\");\nconst parsed = JSON.parse(raw);\n\n// 코드 생성\nconst output = generateApiCode(parsed);\n\n// 콘솔 출력 or 파일 저장\nconsole.log(\"==== 생성된 코드 ====\");\nconsole.log(output);\n"
+        }
+    ]
+}

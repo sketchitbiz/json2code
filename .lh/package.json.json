@@ -1,0 +1,18 @@
+{
+    "sourceFile": "package.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1750730158854,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1750730158854,
+            "name": "Commit-0",
+            "content": "{\n  \"name\": \"json2code\",\n  \"version\": \"1.0.0\",\n  \"main\": \"index.js\",\n\"scripts\": {\n  \"gen:types\": \"ts-node src/main.types.ts\",\n  \"gen:functions\": \"ts-node src/main.functions.ts\"\n},\n\n  \"keywords\": [],\n  \"author\": \"\",\n  \"license\": \"ISC\",\n  \"description\": \"\",\n  \"devDependencies\": {\n    \"@types/node\": \"^24.0.3\",\n    \"ts-node\": \"^10.9.2\",\n    \"typescript\": \"^5.8.3\"\n  }\n}\n"
+        }
+    ]
+}

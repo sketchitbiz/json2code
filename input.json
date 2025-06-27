@@ -1,0 +1,896 @@
+{
+			"name": "🏪 딜러 (Dealer)",
+			"item": [
+				{
+					"name": "🔐 인증 (Auth)",
+					"item": [
+						{
+							"name": "딜러 회원가입",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"송대현\",\n  \"email\": \"daehyeon@heredotcorp.com\",\n  \"cellphone\": \"01021400226\",\n  \"contactCellphone\": \"01021400226\",\n  \"businessNumber\": \"123-45-67890\",\n  \"profileImage\": 1,\n  \"businessDoc\": 1,\n  \"dealerType\": \"INDIVIDUAL\", // 'INDIVIDUAL', 'SOLE_PROPRIETOR', 'CORPORATION'\n  \"authNum\": 123456\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "회원가입 SMS 전송",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cellphone\": \"01021400226\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/send-join-sms",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"send-join-sms"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "인증번호 확인",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cellphone\": \"01021400226\",\n  \"authNum\": 193266\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/verify-auth-num",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"verify-auth-num"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "인증번호 전송",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cellphone\": \"01021400226\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/send-auth-num",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"send-auth-num"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "딜러 로그인",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cellphone\": \"01021400226\",\n  \"authNum\": 123456\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "🏪 딜러 정보 (Dealer Info)",
+					"item": [
+						{
+							"name": "딜러 정보 조회",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbmRleCI6MTAxMiwiaWF0IjoxNzUwOTEyOTE4LCJleHAiOjE3NTIxMjI1MTgsImF1ZCI6InVzZXJzIiwiaXNzIjoiUmUtQmxpbmcifQ.uB8BzBorZl81jj2EI2qPCGJsFJjo-lLIGpDugA1vocQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{dealerToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/dealer/info",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"info"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "딜러 정보 수정",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{dealerToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"newdealer@example.com\",\n  \"contactCellphone\": \"01021400226\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/info/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"info",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "딜러 전화번호 수정",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{dealerToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cellphone\": \"01098765432\",\n  \"authNum\": 12345\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/phone/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"phone",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "프로필 이미지 수정",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"profileImage\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/profule-image/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"profule-image",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "탈퇴하기",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/dealer/delete",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "딜러 추가정보 생성",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{dealerToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"businessYear\": 1,\n  \"officeAddress\": \"\",\n  \"sido\": \"\",\n  \"sigungu\" : \"\",\n  \"sigunguCode\": \"\",\n  \"customerAppeal\": \"안녕\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/addition-info/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"addition-info",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "딜러 추가정보 생성 Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{dealerToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"businessYear\": 1,\n  \"officeAddress\": \"\",\n  \"sido\": \"\",\n  \"sigungu\" : \"\",\n  \"sigunguCode\": \"\",\n  \"customerAppeal\": \"안녕\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/addition-info/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"addition-info",
+										"update"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "💳 결제 및 카드 (Billing)",
+					"item": [
+						{
+							"name": "카드 등록",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbmRleCI6MTAxMiwiaWF0IjoxNzUwOTEyOTE4LCJleHAiOjE3NTIxMjI1MTgsImF1ZCI6InVzZXJzIiwiaXNzIjoiUmUtQmxpbmcifQ.uB8BzBorZl81jj2EI2qPCGJsFJjo-lLIGpDugA1vocQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{dealerToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cardNumber\": \"5105545000308434\",\n  \"expireDate\": \"3003\",\n  \"alias\": \"여기닷 법카\",\n  \"primaryYn\": \"Y\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/card/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"card",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "카드 삭제",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{dealerToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"cardIndex\": 1\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/card/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"card",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "카드 목록 조회",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{dealerToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"dealerId\": 1\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/card/get-list",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"card",
+										"get-list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "카드 정보 수정",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{dealerToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"cardIndex\": 1,\n    \"alias\": \"\",\n    \"primaryYn\": \"N\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/card/get-list",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"card",
+										"get-list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "결제 내역 조회",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{dealerToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fromDate\": \"2024-01-01\",\n  \"toDate\": \"2026-01-01\",\n  \"keyword\": \"\",\n  \"offset\": 0\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/payment/get-list",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"payment",
+										"get-list"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "🏺 경매 (Auction)",
+					"item": [
+						{
+							"name": "입찰 가능한 경매 목록",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbmRleCI6MTAxMiwiaWF0IjoxNzUwOTEyOTE4LCJleHAiOjE3NTIxMjI1MTgsImF1ZCI6InVzZXJzIiwiaXNzIjoiUmUtQmxpbmcifQ.uB8BzBorZl81jj2EI2qPCGJsFJjo-lLIGpDugA1vocQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{dealerToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"keyword\": \"\",\n  \"options\" : {\n    \"category\": [\"시계\"], //? 문자열 아니면 필드 제거\n    \"components\": [\"구성품없음\"], //? 문자열 리스트 아니면 필드 제거\n    \"minPrice\": 100, //? 정수 아니면 필드 자체 제거\n    \"maxPrice\": 100 //? 정수 아니면 필드 자체 제거\n  },\n  \"order\": {\n    \"leftTime\" : \"ASC\", // ASC or DESC or null\n    \"startPrive\":  \"ASC\" // ASC or DESC or null\n  },\n  \"offset\": 0\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/auction/get-list",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"auction",
+										"get-list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "경매 상세 조회",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{dealerToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"auctionIndex\": 1\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/auction/get",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"auction",
+										"get"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "입찰하기",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{dealerToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"auctionIndex\":1 ,\n  \"proposalMessage\": \"\",\n  \"bidPrice\": 100\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/bid/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"bid",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "입찰가수정",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{dealerToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"bidIndex\": 1,\n    \"bidPrice\": 100\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/bid/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"bid",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "경매 좋아요/좋아요 취소",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZWFsZXJJbmRleCI6MTAwNywiaWF0IjoxNzUwNzUyODc5LCJleHAiOjE3NTE5NjI0NzksImF1ZCI6InVzZXJzIiwiaXNzIjoiUmUtQmxpbmcifQ.9lMrSLNGTfCU47wxPqLyw9SD2Xn0s_fV661cKhWN6Bk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"auctionIndex\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/auction/like",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"auction",
+										"like"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "💰 입찰 관리 (Bid Management)",
+					"item": [
+						{
+							"name": "입찰 내역 조회",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{dealerToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"fromDate\": \"\",\n    \"toDate\": \"\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/bid/get-list",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"bid",
+										"get-list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "거래 완료",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{dealerToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"bidId\": 1,\n  \"paymentMethod\": \"card\",\n  \"deliveryAddress\": \"서울시 강남구 ...\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/bid/complete-transaction",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"bid",
+										"complete-transaction"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "거래 취소",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{dealerToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"bidId\": 1,\n  \"reason\": \"상품 상태 불일치\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/bid/cancel-transaction",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"bid",
+										"cancel-transaction"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "❓ FAQ 및 약관 (FAQ & Terms) Copy",
+					"item": [
+						{
+							"name": "FAQ 목록 조회",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"category\": \"all\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/faq",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"faq"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "약관 조회",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"type\": \"service\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dealer/terms",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"terms"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "공지사항 조회",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/dealer/notification/get-list",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dealer",
+										"notification",
+										"get-list"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
