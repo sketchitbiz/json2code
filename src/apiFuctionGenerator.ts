@@ -47,9 +47,18 @@ function parseRawJsonWithComments(raw: string): Record<string, { value: any; opt
   return result;
 }
 
-export function generateApiFunctions(apiSpec: any): string {
+export function generateApiFunctions(apiSpec: any, apiType: string, useProxy: boolean = true): string {
+  const capitalized = apiType.charAt(0).toUpperCase() + apiType.slice(1);
+  const callFnName = `call${capitalized}Api`;
+  const apiImportPath = `./call${capitalized}Api`;
+  const typeImportPath = `./${apiType.toLowerCase()}Api.types`;
+
   const lines: string[] = [];
   const typeNames = new Set<string>();
+
+  if (!useProxy) {
+    lines.push(`const BASE_URL = process.env.NEXT_PUBLIC_API_HOST!;`);
+  }
 
   function traverse(items: any[], groupNames: string[] = []) {
     for (const item of items) {
@@ -94,29 +103,22 @@ export function generateApiFunctions(apiSpec: any): string {
 
         const fnName = toCamel(url.split("/").join("_"));
 
+        const urlLine = useProxy
+          ? `url: buildProxyUrl("${url}"),`
+          : `url: \`\${BASE_URL}/${url}\`,`; // BASE_URL + URL 조합으로 구성
+
         lines.push(`// ${[...groupNames, name].join(" / ")}`);
         lines.push(`
 export async function ${fnName}(${params}) {
-  return callDealerApi({
+  return ${callFnName}({
     title: "${title}",
-    url: buildProxyUrl("${url}"),
+    ${urlLine}
     ${hasToken ? "withToken: true," : ""}
     ${bodyArg ? `body: ${bodyArg},` : ""}
     isCallPageLoader: true,
   });
 }
         `.trim());
-//         lines.push(`
-// export async function ${fnName}(${params}) {
-//   return callUserApi({
-//     title: "${title}",
-//     url: buildProxyUrl("${url}"),
-//     ${hasToken ? "withToken: true," : ""}
-//     ${bodyArg ? `body: ${bodyArg},` : ""}
-//     isCallPageLoader: true,
-//   });
-// }
-//         `.trim());
       }
     }
   }
@@ -124,25 +126,16 @@ export async function ${fnName}(${params}) {
   traverse(apiSpec, []);
 
   const importLines = [
-    `import { callDealerApi } from "./callDealerApi";`,
-    `import { buildProxyUrl } from "@/lib/config/apiHost";`,
+    `import { ${callFnName} } from "${apiImportPath}";`,
   ];
 
-  if (typeNames.size > 0) {
-    importLines.push(
-      `import { ${Array.from(typeNames).join(", ")} } from "./dealerApi.types";`
-    );
+  if (useProxy) {
+    importLines.push(`import { buildProxyUrl } from "@/lib/config/apiHost";`);
   }
-  // const importLines = [
-  //   `import { callUserApi } from "./callUserApi";`,
-  //   `import { buildProxyUrl } from "@/lib/config/apiHost";`,
-  // ];
 
-  // if (typeNames.size > 0) {
-  //   importLines.push(
-  //     `import { ${Array.from(typeNames).join(", ")} } from "./userApi.types";`
-  //   );
-  // }
+  if (typeNames.size > 0) {
+    importLines.push(`import { ${Array.from(typeNames).join(", ")} } from "${typeImportPath}";`);
+  }
 
   return [...importLines, "", ...lines].join("\n\n");
 }

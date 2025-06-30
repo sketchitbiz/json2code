@@ -6,7 +6,7 @@ import clipboard from "clipboardy";
 const input = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../input.json"), "utf-8"));
 const items = input.item;
 
-const functionOutput = generateApiFunctions(items, 'Dealer');
+const functionOutput = generateApiFunctions(items, 'Dealer',false);
 
 console.log("✅ Generated API Functions:\n");
 console.log(functionOutput);
